@@ -1,19 +1,10 @@
 import React, {useEffect, useState} from 'react';
-import {
-  SafeAreaView,
-  Text,
-  FlatList,
-  ListRenderItem,
-  TouchableOpacity,
-  View,
-  Image,
-} from 'react-native';
-import FastImage from 'react-native-fast-image';
-import {getTopTracks, handleAddTrackToList} from '@services';
+import {SafeAreaView, FlatList, View} from 'react-native';
+import {TrackItem} from '@components';
+import {getTopTracks} from '@services';
 import {HomeProps, TrackTop} from '@types';
 
 import styles from './styles';
-import Play from './assets/play.png';
 type ListKeyExtractor = (item: TrackTop, index: number) => string;
 export function Home({navigation}: HomeProps) {
   const [tracks, setTracks] = useState<TrackTop[]>([]);
@@ -53,36 +44,14 @@ export function Home({navigation}: HomeProps) {
   const separatorView = () => <View style={styles.separator} />;
   const keyExtractor: ListKeyExtractor = (item, index) => item.mbid + index;
 
-  const renderItem: ListRenderItem<TrackTop> = ({item, index}) => (
-    <TouchableOpacity
-      style={styles.itemContainer}
-      key={index}
-      onPress={() => handleOnPressTrack(item.mbid)}>
-      <FastImage
-        style={styles.imagen}
-        source={{
-          uri: `${item.image[1]['#text']}`,
-          priority: FastImage.priority.normal,
-        }}
-        resizeMode={FastImage.resizeMode.contain}
-      />
-      <View style={styles.itemSubContainer}>
-        <Text style={styles.textName}>{item.name}</Text>
-        <Text style={styles.textArtistName}>{item.artist.name}</Text>
-      </View>
-      <TouchableOpacity
-        style={styles.playContainer}
-        onPress={() => handleAddTrackToList(item)}>
-        <Image source={Play} resizeMode="contain" style={styles.playIcon} />
-      </TouchableOpacity>
-    </TouchableOpacity>
-  );
   return (
     <SafeAreaView style={styles.container}>
       <FlatList<TrackTop>
         data={tracks}
         extraData={tracks}
-        renderItem={renderItem}
+        renderItem={({item}) => (
+          <TrackItem item={item} handleOnPressTrack={handleOnPressTrack} />
+        )}
         keyExtractor={keyExtractor}
         style={styles.listContainer}
         ItemSeparatorComponent={separatorView}
