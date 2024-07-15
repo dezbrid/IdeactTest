@@ -1,5 +1,5 @@
 import axios from 'axios';
 
-export const axiosLastFM = axios.create({
-  baseURL: '',
+export const axiosAudiosScrobbler = axios.create({
+  baseURL: 'http://ws.audioscrobbler.com/2.0/',
 });
