@@ -2,7 +2,6 @@ import React from 'react';
 import {Image, Text, TouchableOpacity, View} from 'react-native';
 import FastImage from 'react-native-fast-image';
 import {TrackTop} from '@types';
-import {handleAddTrackToList} from '@services';
 
 import styles from './styles';
 import Play from './assets/play.png';
@@ -10,8 +9,9 @@ import Play from './assets/play.png';
 type Props = {
   item: TrackTop;
   handleOnPressTrack: (id: string) => void;
+  handlePlay: (item: TrackTop) => void;
 };
-export const TrackItem = ({item, handleOnPressTrack}: Props) => {
+export const TrackItem = ({item, handleOnPressTrack, handlePlay}: Props) => {
   return (
     <TouchableOpacity
       style={styles.itemContainer}
@@ -31,7 +31,7 @@ export const TrackItem = ({item, handleOnPressTrack}: Props) => {
       </View>
       <TouchableOpacity
         style={styles.playContainer}
-        onPress={() => handleAddTrackToList(item)}>
+        onPress={() => handlePlay(item)}>
         <Image source={Play} resizeMode="contain" style={styles.playIcon} />
       </TouchableOpacity>
     </TouchableOpacity>

@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {SafeAreaView, FlatList, View} from 'react-native';
 import {TrackItem} from '@components';
-import {getTopTracks} from '@services';
+import {getTopTracks, handleAddTrackToList} from '@services';
 import {HomeProps, TrackTop} from '@types';
 
 import styles from './styles';
@@ -50,7 +50,11 @@ export function Home({navigation}: HomeProps) {
         data={tracks}
         extraData={tracks}
         renderItem={({item}) => (
-          <TrackItem item={item} handleOnPressTrack={handleOnPressTrack} />
+          <TrackItem
+            item={item}
+            handleOnPressTrack={handleOnPressTrack}
+            handlePlay={handleAddTrackToList}
+          />
         )}
         keyExtractor={keyExtractor}
         style={styles.listContainer}
