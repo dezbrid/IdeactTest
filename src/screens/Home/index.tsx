@@ -9,7 +9,7 @@ import {
   Image,
 } from 'react-native';
 import FastImage from 'react-native-fast-image';
-import {getTopTracks} from '@services';
+import {getTopTracks, handleAddTrackToList} from '@services';
 import {HomeProps, TrackTop} from '@types';
 
 import styles from './styles';
@@ -70,7 +70,9 @@ export function Home({navigation}: HomeProps) {
         <Text style={styles.textName}>{item.name}</Text>
         <Text style={styles.textArtistName}>{item.artist.name}</Text>
       </View>
-      <TouchableOpacity style={styles.playContainer}>
+      <TouchableOpacity
+        style={styles.playContainer}
+        onPress={() => handleAddTrackToList(item)}>
         <Image source={Play} resizeMode="contain" style={styles.playIcon} />
       </TouchableOpacity>
     </TouchableOpacity>
