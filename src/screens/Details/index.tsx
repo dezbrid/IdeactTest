@@ -14,7 +14,6 @@ export function Details({route}: DetailProps): JSX.Element {
   const handleGetInfotrack = async (id: string): Promise<void> => {
     try {
       const response = await getInfoTracks(id);
-      console.log('response', response);
       setTrackInfo(response.track);
     } catch (error) {
       console.error(error);
