@@ -10,16 +10,19 @@ import {
 } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import {getTopTracks} from '@services';
-import {Track} from '@types';
+import {HomeProps, TrackTop} from '@types';
 
 import styles from './styles';
 import Play from './assets/play.png';
-type ListKeyExtractor = (item: Track, index: number) => string;
-export function Home() {
-  const [tracks, setTracks] = useState<Track[]>([]);
+type ListKeyExtractor = (item: TrackTop, index: number) => string;
+export function Home({navigation}: HomeProps) {
+  const [tracks, setTracks] = useState<TrackTop[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [totalPage, setTotalPage] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(false);
+  const handleOnPressTrack = (id: string) => {
+    navigation.navigate('Details', {id});
+  };
   const handleGetToptrack = async (page: number = 1): Promise<void> => {
     try {
       setLoading(true);
@@ -50,11 +53,11 @@ export function Home() {
   const separatorView = () => <View style={styles.separator} />;
   const keyExtractor: ListKeyExtractor = (item, index) => item.mbid + index;
 
-  const renderItem: ListRenderItem<Track> = ({item, index}) => (
+  const renderItem: ListRenderItem<TrackTop> = ({item, index}) => (
     <TouchableOpacity
       style={styles.itemContainer}
       key={index}
-      onPress={() => {}}>
+      onPress={() => handleOnPressTrack(item.mbid)}>
       <FastImage
         style={styles.imagen}
         source={{
@@ -74,7 +77,7 @@ export function Home() {
   );
   return (
     <SafeAreaView style={styles.container}>
-      <FlatList<Track>
+      <FlatList<TrackTop>
         data={tracks}
         extraData={tracks}
         renderItem={renderItem}

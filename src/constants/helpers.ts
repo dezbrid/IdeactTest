@@ -8,3 +8,5 @@ export const normalize = (size: number): number => {
 
   return Math.round(PixelRatio.roundToNearestPixel(newSize));
 };
+
+export const find_tag_regex = /<[^>]*>/gim;
