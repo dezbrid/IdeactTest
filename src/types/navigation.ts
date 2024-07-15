@@ -1,3 +1,5 @@
+import {NavigatorScreenParams} from '@react-navigation/native';
+
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 export type RootStackParamList = {
   Home: undefined;
@@ -7,3 +9,8 @@ export type RootStackParamList = {
 export type DetailProps = NativeStackScreenProps<RootStackParamList, 'Details'>;
 
 export type HomeProps = NativeStackScreenProps<RootStackParamList, 'Home'>;
+
+export type TabParamList = {
+  HomeStack: NavigatorScreenParams<RootStackParamList>;
+  Profile: undefined;
+};
